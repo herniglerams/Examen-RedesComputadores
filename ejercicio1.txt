@@ -1,0 +1,32 @@
+sudo scapy //lo primero para entrar en scapy
+
+Composición del mensaje en Scapy:
+
+	object_Ethernet = Ether()
+	object_IP = IP()
+	object_MAC = MAC()
+	object_IP.dst = "255.255.255.255"
+	object_Ethernet.dst = "FF:FF:FF:FF:FF:FF"
+	object_IP.display() // para comprobar que esta correcto
+	object_Ethernet.display() // para comprobar que esta correcto
+	object_ICMP = ICMP()
+	sendp(object_Ethernet/object_IP/object_ICMP)
+
+(Esta sería la manera de enviar un mensaje, si repetimos dos veces el último comando sendp... enviariamos 3 veces ese mensaje SOLUCION MUY POCO OPTIMA)
+
+creo que se debería de hacer de una manera parecida a la siguiente, pero no me funcionó! (antes deberíamos asignar las direcciones de destino y crear los objetos, una 
+vez se haya hecho esto, hacemos el bucle y dentro el envío)
+
+i=0
+while(i<2):
+	sendp(object_Ethernet/object_IP/object_ICMP)
+
+
+
+
+
+Comando para capturar el trafico TCPDump:
+Si se captura en funcion del protocolo al usar icmp podría ser:
+	sudo tcpdump icmp
+Si se captura en funcion de la direccion de destino:
+	sudo tcpdump dst host 255.255.255.255
